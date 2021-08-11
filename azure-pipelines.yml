@@ -10,9 +10,10 @@ stages:
     pool:
       vmImage: 'ubuntu-latest'
     steps:
-    - script: dotnet build --configuration $(buildConfiguration)
-      displayName: 'dotnet build $(buildConfiguration)'
-
+    - task: UseDotNet@2
+      displayName: Use .NET SDK $(dotnetSdkVersion)
+      inputs:
+        version: $(dotnetSdkVersion)
 - stage: Deploy
   displayName: Deploy
   jobs:
