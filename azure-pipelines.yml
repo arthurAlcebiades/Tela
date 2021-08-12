@@ -21,15 +21,21 @@ stages:
         verbose: false
 
 - stage: Deploy
-  displayName: Deploy
+  displayName: Deploy the web application
+  dependsOn: Build
   jobs:
-  - deployment: deploy
-    displayName: Deploy job
-    environment: 'dev'
+  - deployment: Deploy
     pool:
       vmImage: 'ubuntu-latest'
     strategy:
       runOnce:
         deploy:
           steps:
-          - script: echo 'Deploy Dev'
+          - download: current
+            artifact: drop
+          - task: AzureWebApp@1
+            displayName: 'Azure App Service Deploy: website'
+            inputs:
+              azureSubscription: bba12a48-76de-4498-b0bf-77e7ce1d2b58
+              appName: $(WebAppName)
+              package: $(Pipeline.Workspace)/drop/$(buildConfiguration)/*.zip
