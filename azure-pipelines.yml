@@ -26,7 +26,10 @@ stages:
   jobs:
   - deployment: Deploy
     pool:
-      vmImage: 'ubuntu-latest'
+      vmImage: ubuntu-18.04
+    environment: 'dev'
+    variables:
+    - group: Release
     strategy:
       runOnce:
         deploy:
