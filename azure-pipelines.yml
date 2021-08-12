@@ -19,7 +19,7 @@ stages:
       displayName: Run npm install
       inputs:
         verbose: false
-    - script: ./node_modules/.bin/node-sass src/main --output src/main
+    - script: C:/ws-proj/CadastroLogin src/main --output src/main
       displayName: Compile Sass assets
     - task: gulp@1
       displayName: Run gulp tasks
